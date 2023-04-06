@@ -56,12 +56,12 @@ def _train(model, args):
             l3 = criterion(pred_img[2], label_img)
             loss_content = l1+l2+l3
 
-            label_fft1 = torch.rfft(label_img4, signal_ndim=2, normalized=False, onesided=False)
-            pred_fft1 = torch.rfft(pred_img[0], signal_ndim=2, normalized=False, onesided=False)
-            label_fft2 = torch.rfft(label_img2, signal_ndim=2, normalized=False, onesided=False)
-            pred_fft2 = torch.rfft(pred_img[1], signal_ndim=2, normalized=False, onesided=False)
-            label_fft3 = torch.rfft(label_img, signal_ndim=2, normalized=False, onesided=False)
-            pred_fft3 = torch.rfft(pred_img[2], signal_ndim=2, normalized=False, onesided=False)
+            label_fft1 = torch.fft.fft2(label_img4, dim=(-2, -1))
+            pred_fft1 = torch.fft.fft2(pred_img[0], dim=(-2, -1))
+            label_fft2 = torch.fft.fft2(label_img2, dim=(-2, -1))
+            pred_fft2 = torch.fft.fft2(pred_img[1], dim=(-2, -1))
+            label_fft3 = torch.fft.fft2(label_img, dim=(-2, -1))
+            pred_fft3 = torch.fft.fft2(pred_img[2], dim=(-2, -1))
 
             f1 = criterion(pred_fft1, label_fft1)
             f2 = criterion(pred_fft2, label_fft2)
